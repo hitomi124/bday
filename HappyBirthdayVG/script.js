@@ -39,6 +39,7 @@ b.onclick = e => {
   }
 })();
 
+// ---- music controls ----
 const music = document.getElementById('bgMusic');
 const musicBtn = document.getElementById('musicBtn');
 const volumeSlider = document.getElementById('volumeSlider');
@@ -61,6 +62,7 @@ volumeSlider.oninput = () => {
   music.volume = volumeSlider.value;
 };
 
+// ---- candle + wish popup ----
 const candleScene = document.getElementById('candleScene');
 const flame = document.getElementById('flame');
 const smoke = document.getElementById('smoke');
@@ -72,6 +74,7 @@ const wishInput = document.getElementById('wishInput');
 const wishSubmit = document.getElementById('wishSubmit');
 const wishThanks = document.getElementById('wishThanks');
 
+// show the candle right when she opens the note
 b.addEventListener('click', () => {
   candleScene.classList.add('show');
 });
@@ -88,6 +91,7 @@ flame.onclick = () => {
   }, 1500);
 };
 
+// "Make a wish" button opens the popup
 wishBtn.onclick = () => {
   wishOverlay.classList.add('show');
 };
@@ -116,15 +120,25 @@ wishBox.addEventListener('submit', (e) => {
   });
 });
 
+// ---- archery intro: pull & release arrow to hit the gift ----
 const archeryScene = document.getElementById('archeryScene');
 const archeryArrow = document.getElementById('arrow');
 const giftTarget = document.getElementById('giftTarget');
+const stringTop = document.getElementById('stringTop');
+const stringBottom = document.getElementById('stringBottom');
+const NOCK_REST_X = 35;
 
 let dragging = false;
 let startPointerX = 0;
 let restArrowLeft = null;
 const MAX_PULL = 90;
 const FIRE_THRESHOLD = 0.4;
+
+function updateString(dx){
+  const x = NOCK_REST_X + dx;
+  stringTop.setAttribute('x2', x);
+  stringBottom.setAttribute('x2', x);
+}
 
 function getTravelDistance(){
   if (restArrowLeft === null) {
@@ -134,7 +148,7 @@ function getTravelDistance(){
   const giftCenterX = giftRect.left + giftRect.width / 2;
   return giftCenterX - restArrowLeft;
 }
-
+// cache the rest position as soon as the page loads
 getTravelDistance();
 
 archeryArrow.addEventListener('pointerdown', (e) => {
@@ -149,6 +163,7 @@ archeryArrow.addEventListener('pointermove', (e) => {
   let dx = e.clientX - startPointerX;
   dx = Math.min(0, Math.max(-MAX_PULL, dx));
   archeryArrow.style.transform = `translate(${dx}px,-50%)`;
+  updateString(dx);
 });
 
 archeryArrow.addEventListener('pointerup', (e) => {
@@ -162,6 +177,7 @@ archeryArrow.addEventListener('pointerup', (e) => {
     const travel = getTravelDistance();
     archeryArrow.classList.add('firing');
     archeryArrow.style.transform = `translate(${travel}px,-50%)`;
+    updateString(0);
 
     setTimeout(() => {
       giftTarget.classList.add('hit');
@@ -172,5 +188,6 @@ archeryArrow.addEventListener('pointerup', (e) => {
   } else {
     archeryArrow.classList.add('snap-back');
     archeryArrow.style.transform = 'translate(0,-50%)';
+    updateString(0);
   }
 });
