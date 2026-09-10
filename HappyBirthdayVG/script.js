@@ -76,6 +76,7 @@ b.addEventListener('click', () => {
   candleScene.classList.add('show');
 });
 
+// she taps the flame to blow it out
 flame.onclick = () => {
   if (flame.classList.contains('blown')) return;
   flame.classList.add('blown');
@@ -113,4 +114,63 @@ wishBox.addEventListener('submit', (e) => {
     wishInput.disabled = true;
     wishSubmit.disabled = true;
   });
+});
+
+const archeryScene = document.getElementById('archeryScene');
+const archeryArrow = document.getElementById('arrow');
+const giftTarget = document.getElementById('giftTarget');
+
+let dragging = false;
+let startPointerX = 0;
+let restArrowLeft = null;
+const MAX_PULL = 90;
+const FIRE_THRESHOLD = 0.4;
+
+function getTravelDistance(){
+  if (restArrowLeft === null) {
+    restArrowLeft = archeryArrow.getBoundingClientRect().left;
+  }
+  const giftRect = giftTarget.getBoundingClientRect();
+  const giftCenterX = giftRect.left + giftRect.width / 2;
+  return giftCenterX - restArrowLeft;
+}
+
+getTravelDistance();
+
+archeryArrow.addEventListener('pointerdown', (e) => {
+  dragging = true;
+  startPointerX = e.clientX;
+  archeryArrow.setPointerCapture(e.pointerId);
+  archeryArrow.classList.remove('firing', 'snap-back');
+});
+
+archeryArrow.addEventListener('pointermove', (e) => {
+  if (!dragging) return;
+  let dx = e.clientX - startPointerX;
+  dx = Math.min(0, Math.max(-MAX_PULL, dx));
+  archeryArrow.style.transform = `translate(${dx}px,-50%)`;
+});
+
+archeryArrow.addEventListener('pointerup', (e) => {
+  if (!dragging) return;
+  dragging = false;
+  let dx = e.clientX - startPointerX;
+  dx = Math.min(0, Math.max(-MAX_PULL, dx));
+  const power = Math.abs(dx) / MAX_PULL;
+
+  if (power >= FIRE_THRESHOLD) {
+    const travel = getTravelDistance();
+    archeryArrow.classList.add('firing');
+    archeryArrow.style.transform = `translate(${travel}px,-50%)`;
+
+    setTimeout(() => {
+      giftTarget.classList.add('hit');
+      setTimeout(() => {
+        archeryScene.classList.add('hidden');
+      }, 550);
+    }, 460);
+  } else {
+    archeryArrow.classList.add('snap-back');
+    archeryArrow.style.transform = 'translate(0,-50%)';
+  }
 });
