@@ -73,6 +73,7 @@ musicBtn.onclick = () => {
   }
 };
 
+document.addEventListener('visibilitychange', () => {
   if (!audioCtx || !gainNode) return;
 
   const now = audioCtx.currentTime;
