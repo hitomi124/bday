@@ -42,25 +42,45 @@ b.onclick = e => {
 const music = document.getElementById('bgMusic');
 const musicBtn = document.getElementById('musicBtn');
 const volumeSlider = document.getElementById('volumeSlider');
-const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-if (isMobile) {
-  volumeSlider.style.display = 'none';
-  const volumeHint = document.createElement('p');
-  volumeHint.textContent = 'Use your phone\'s volume buttons 🔊';
-  volumeHint.style.fontSize = '0.85rem';
-  volumeHint.style.opacity = '0.8';
-  volumeSlider.insertAdjacentElement('afterend', volumeHint);
+
+let audioCtx, gainNode, sourceNode;
+
+function setupAudioGraph() {
+  if (audioCtx) return;
+  audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  sourceNode = audioCtx.createMediaElementSource(music);
+  gainNode = audioCtx.createGain();
+  gainNode.gain.value = volumeSlider.value;
+
+  sourceNode.connect(gainNode);
+  gainNode.connect(audioCtx.destination);
 }
 
-music.volume = volumeSlider.value;
-
 musicBtn.onclick = () => {
+  setupAudioGraph();
+  if (audioCtx.state === 'suspended') {
+    audioCtx.resume();
+  }
+
   if (music.paused) {
     music.play();
     musicBtn.textContent = 'Pause';
     musicBtn.classList.add('playing');
   } else {
     music.pause();
+    musicBtn.textContent = 'Play this, please';
+    musicBtn.classList.remove('playing');
+  }
+};
+
+volumeSlider.oninput = () => {
+  if (gainNode) {
+    gainNode.gain.value = volumeSlider.value;
+  } else {
+
+    music.volume = volumeSlider.value;
+  }
+};
     musicBtn.textContent = 'Play this, please';
     musicBtn.classList.remove('playing');
   }
