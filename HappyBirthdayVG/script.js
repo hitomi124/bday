@@ -61,7 +61,6 @@ volumeSlider.oninput = () => {
   music.volume = volumeSlider.value;
 };
 
-// ---- candle + wish popup ----
 const candleScene = document.getElementById('candleScene');
 const flame = document.getElementById('flame');
 const smoke = document.getElementById('smoke');
