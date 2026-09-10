@@ -77,17 +77,8 @@ volumeSlider.oninput = () => {
   if (gainNode) {
     gainNode.gain.value = volumeSlider.value;
   } else {
-
     music.volume = volumeSlider.value;
   }
-};
-    musicBtn.textContent = 'Play this, please';
-    musicBtn.classList.remove('playing');
-  }
-};
-
-volumeSlider.oninput = () => {
-  music.volume = volumeSlider.value;
 };
 
 const candleScene = document.getElementById('candleScene');
