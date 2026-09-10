@@ -232,3 +232,82 @@ body{font-family:Arial,sans-serif;color:#3d1d68}
 @media(prefers-reduced-motion:reduce){
   *,*:before,*:after{animation-duration:.01ms!important;transition-duration:.01ms!important}
 }
+
+.archery-scene{
+  position:absolute;inset:0;z-index:40;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:20px;
+  padding:0 8vw;
+  text-align:center;
+  background:linear-gradient(145deg,#fff 5%,#fcfaff 50%,#eee5ff);
+  transition:opacity .6s ease;
+}
+.archery-scene.hidden{opacity:0;pointer-events:none}
+
+.archery-title{font:italic 17px Georgia;color:#7952a6;margin:0}
+.archery-hint{font:400 11px Georgia;letter-spacing:.15em;text-transform:uppercase;color:#8b6eaf;margin:0;opacity:.8}
+.archery-date{font:400 12px Georgia;letter-spacing:.1em;color:#8b6eaf;margin:2px 0 0}
+
+.archery-field{
+  position:relative;
+  width:min(100%,420px);
+  height:170px;
+}
+
+.gift-target{
+  position:absolute;
+  right:8%;
+  top:50%;
+  transform:translateY(-50%);
+  width:70px;height:70px;
+  display:flex;align-items:center;justify-content:center;
+}
+.gift-glow{
+  position:absolute;inset:-25px;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(180,120,230,.4),transparent 70%);
+  animation:giftPulse 2.4s ease-in-out infinite;
+}
+@keyframes giftPulse{
+  50%{transform:scale(1.15);opacity:.7}
+}
+.gift-emoji{font-size:42px;position:relative;z-index:1;animation:giftBob 2.6s ease-in-out infinite;display:inline-block}
+@keyframes giftBob{50%{transform:translateY(-5px)}}
+
+.gift-target.hit .gift-emoji{animation:giftPop .6s ease forwards}
+@keyframes giftPop{
+  0%{transform:scale(1)}
+  40%{transform:scale(1.4) rotate(-8deg)}
+  100%{transform:scale(0) rotate(10deg);opacity:0}
+}
+.gift-target.hit .gift-glow{animation:glowBurst .6s ease forwards}
+@keyframes glowBurst{
+  0%{transform:scale(1);opacity:.5}
+  100%{transform:scale(2.6);opacity:0}
+}
+
+.arrow{
+  position:absolute;
+  left:10%;
+  top:50%;
+  display:flex;
+  align-items:center;
+  transform:translate(0,-50%);
+  cursor:grab;
+  touch-action:none;
+  user-select:none;
+}
+.arrow:active{cursor:grabbing}
+.arrow-line{
+  display:inline-block;
+  width:34px;height:2px;
+  background:#8c5bc7;
+  margin-right:-2px;
+}
+.arrow-tip{
+  color:#8c5bc7;
+  font-size:18px;
+  line-height:1;
+}
+.arrow.firing{transition:transform .45s cubic-bezier(.2,.7,.3,1)}
+.arrow.snap-back{transition:transform .35s ease}
