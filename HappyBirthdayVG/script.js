@@ -39,7 +39,6 @@ b.onclick = e => {
   }
 })();
 
-// ---- music controls ----
 const music = document.getElementById('bgMusic');
 const musicBtn = document.getElementById('musicBtn');
 const volumeSlider = document.getElementById('volumeSlider');
@@ -74,12 +73,10 @@ const wishInput = document.getElementById('wishInput');
 const wishSubmit = document.getElementById('wishSubmit');
 const wishThanks = document.getElementById('wishThanks');
 
-// show the candle right when she opens the note
 b.addEventListener('click', () => {
   candleScene.classList.add('show');
 });
 
-// she taps the flame to blow it out
 flame.onclick = () => {
   if (flame.classList.contains('blown')) return;
   flame.classList.add('blown');
@@ -91,7 +88,6 @@ flame.onclick = () => {
   }, 1500);
 };
 
-// "Make a wish" button opens the popup
 wishBtn.onclick = () => {
   wishOverlay.classList.add('show');
 };
@@ -108,7 +104,7 @@ wishBox.addEventListener('submit', (e) => {
   e.preventDefault();
   if (wishInput.value.trim() === '') return;
 
-  fetch('/', {
+  fetch('https://api.web3forms.com/submit', {
     method: 'POST',
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
     body: new URLSearchParams(new FormData(wishBox)).toString()
@@ -120,7 +116,6 @@ wishBox.addEventListener('submit', (e) => {
   });
 });
 
-// ---- archery intro: pull & release arrow to hit the gift ----
 const archeryScene = document.getElementById('archeryScene');
 const archeryArrow = document.getElementById('arrow');
 const giftTarget = document.getElementById('giftTarget');
@@ -148,7 +143,6 @@ function getTravelDistance(){
   const giftCenterX = giftRect.left + giftRect.width / 2;
   return giftCenterX - restArrowLeft;
 }
-// cache the rest position as soon as the page loads
 getTravelDistance();
 
 archeryArrow.addEventListener('pointerdown', (e) => {
