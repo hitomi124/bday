@@ -73,6 +73,30 @@ musicBtn.onclick = () => {
   }
 };
 
+  if (!audioCtx || !gainNode) return;
+
+  const now = audioCtx.currentTime;
+
+  if (document.hidden) {
+    gainNode.gain.cancelScheduledValues(now);
+    gainNode.gain.setValueAtTime(gainNode.gain.value, now);
+    gainNode.gain.linearRampToValueAtTime(0, now + 0.1);
+    setTimeout(() => {
+      if (audioCtx.state === 'running') audioCtx.suspend();
+    }, 120);
+  } else {
+    if (audioCtx.state === 'suspended') {
+      audioCtx.resume().then(() => {
+        const target = parseFloat(volumeSlider.value);
+        const t = audioCtx.currentTime;
+        gainNode.gain.cancelScheduledValues(t);
+        gainNode.gain.setValueAtTime(0, t);
+        gainNode.gain.linearRampToValueAtTime(target, t + 0.15);
+      });
+    }
+  }
+});
+
 volumeSlider.oninput = () => {
   if (gainNode) {
     gainNode.gain.value = volumeSlider.value;
