@@ -42,6 +42,15 @@ b.onclick = e => {
 const music = document.getElementById('bgMusic');
 const musicBtn = document.getElementById('musicBtn');
 const volumeSlider = document.getElementById('volumeSlider');
+const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+if (isMobile) {
+  volumeSlider.style.display = 'none';
+  const volumeHint = document.createElement('p');
+  volumeHint.textContent = 'Use your phone\'s volume buttons 🔊';
+  volumeHint.style.fontSize = '0.85rem';
+  volumeHint.style.opacity = '0.8';
+  volumeSlider.insertAdjacentElement('afterend', volumeHint);
+}
 
 music.volume = volumeSlider.value;
 
