@@ -1,6 +1,10 @@
 const NAME = "Viona";
 const BUTTON_TEXT = "Open this";
-const PERSONAL_MESSAGE = "Hey, happy birthday! I hope your day is filled with peace and real happiness. Just wanted to remind you today how appreciated you are and that I'm always cheering for you. Praying for your good health, peace of mind, and all the comfort you need this year. Enjoy your special day, don't forget to smile, and please take care of yourself always. Happy birthday!";
+const PERSONAL_MESSAGE = "Hey, happy birthday! I know it’s been a really long time since we last talked, and honestly, I wasn’t sure if I should send this. But I still wanted to greet you and wish you a genuinely happy birthday.
+A lot has happened since we last talked, and I’m sure we’ve both changed in many ways. Still, I remember the good moments and memories we shared, and I’m grateful for that, at one point in our lives, I got the chance to know you.
+I don’t expect anything from this message, and you don’t have to feel like you need to reply. I just genuinely hope you’re doing well, taking care of yourself, and finding happiness in the things you do. I pray that this new chapter brings you good health, peace of mind, success, and all the things you’ve been hoping and praying for.
+No matter how much time has passed, I’ll always wish the best for you. I hope you enjoy your special day, keep smiling, and continue to take care of yourself.
+Happy birthday once again. I hope this year brings you many beautiful moments and gives you more reasons to be happy. Take care always. 🤍";
 
 const s = document.getElementById('story');
 const b = document.getElementById('open');
