@@ -94,7 +94,7 @@ body{font-family:Arial,sans-serif;color:#3d1d68}
 
 .card{width:min(100%,430px);padding:28px 24px;border:1px solid rgba(126,74,190,.22);border-radius:27px;background:linear-gradient(145deg,rgba(255,255,255,.8),rgba(241,231,255,.63));box-shadow:0 21px 55px rgba(75,35,127,.12);backdrop-filter:blur(14px);animation:rise .9s 1.3s both}
 .card h2{margin:0 0 14px;font:400 21px Georgia;color:#582b91}
-.card p{margin:0;font-size:13px;line-height:1.75;color:#684b8a}
+.card p{margin:0;font-size:13px;line-height:1.75;color:#684b8a;white-space:pre-line}
 
 @keyframes rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
 
