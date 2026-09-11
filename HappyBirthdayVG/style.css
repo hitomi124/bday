@@ -87,7 +87,7 @@ body{font-family:Arial,sans-serif;color:#3d1d68}
 
 .note{opacity:0;pointer-events:none;filter:blur(5px);transition:.8s}
 .opened .intro{opacity:0;transform:translateY(-51%) scale(.97);pointer-events:none;transition:.65s}
-.opened .note{opacity:1;pointer-events:auto;filter:none;transform:translateY(-43%)}
+.opened .note{opacity:1;pointer-events:auto;filter:none;position:static;transform:none;margin-top:60px}
 
 .name{margin-bottom:13px;animation:rise .8s .5s both}
 .kicker{font:italic 18px Georgia;margin:0 0 24px;color:#7650a4;animation:rise .8s .95s both}
