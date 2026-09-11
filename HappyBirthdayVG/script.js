@@ -152,7 +152,7 @@ wishBox.addEventListener('submit', (e) => {
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
     body: new URLSearchParams(new FormData(wishBox)).toString()
   }).then(() => {
-    wishThanks.textContent = 'Your wish has been made. 💫';
+    wishThanks.textContent = 'Your wish has been made. 💜';
     wishInput.value = '';
     wishInput.disabled = true;
     wishSubmit.disabled = true;
